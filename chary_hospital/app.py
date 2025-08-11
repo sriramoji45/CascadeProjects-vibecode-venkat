@@ -69,6 +69,41 @@ def logout():
 def dashboard():
     return render_template('dashboard.html')
 
+@app.route('/patient-services')
+@login_required
+def patient_services():
+    return render_template('patient_services.html')
+
+@app.route('/doctor')
+@login_required
+def doctor():
+    return render_template('doctor.html')
+
+@app.route('/admin')
+@login_required
+def admin():
+    return render_template('admin.html')
+
+@app.route('/pharmacy')
+@login_required
+def pharmacy():
+    return render_template('pharmacy.html')
+
+@app.route('/billing')
+@login_required
+def billing():
+    return render_template('billing.html')
+
+@app.route('/laboratory')
+@login_required
+def laboratory():
+    return render_template('laboratory.html')
+
+@app.route('/feedback')
+@login_required
+def feedback():
+    return render_template('feedback.html')
+
 @app.route('/add_patient', methods=['GET', 'POST'])
 @login_required
 def add_patient():
