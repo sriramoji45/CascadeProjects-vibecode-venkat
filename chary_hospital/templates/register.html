@@ -1,38 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
 <style>
-.signup-bg {
-    background-image: url('https://img.freepik.com/free-photo/doctor-holding-stethoscope-blue-background-with-ecg-line_53876-104107.jpg?w=1200&t=st=1715539200~exp=1715539800~hmac=7d6e7f8e6c7f1e8c1e4b2c5c6b8b7e4e5b3b9b7b7b7b7b7b7b7b7b7b7b7b7b7'); /* doctor with stethoscope and ECG line */
-    background-size: cover;
-    background-position: center;
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+.signup-wrapper {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7fafd;
 }
-.signup-bg::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 51, 102, 0.5); /* blue overlay for readability */
-    z-index: 1;
+.signup-illustration {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
 }
-.signup-content {
-    position: relative;
-    z-index: 2;
-    color: #fff;
-    width: 100%;
-    max-width: 500px;
-    margin: auto;
-    background: rgba(255,255,255,0.92);
-    border-radius: 16px;
-    padding: 32px 24px 24px 24px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+.signup-illustration img {
+  max-width: 320px;
+  width: 100%;
+  height: auto;
+}
+.signup-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  padding: 40px 32px 32px 32px;
+  max-width: 400px;
+  margin: 32px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media (max-width: 900px) {
+  .signup-wrapper { flex-direction: column; }
+  .signup-card { max-width: 90vw; }
+  .signup-illustration { margin-bottom: 24px; }
 }
 </style>
-<div class="signup-bg">
-  <div class="signup-content">
+<div class="signup-wrapper">
+  <div class="signup-illustration">
+    <img src="https://undraw.co/api/illustrations/svg?search=doctor&color=2563eb" alt="Doctor illustration" style="max-width:320px;width:100%;height:auto;">
+  </div>
+  <div class="signup-card">
     <h2 class="mb-4 text-center" style="color:#003366;">Sign Up</h2>
     <form method="POST">
       <div class="mb-3">
