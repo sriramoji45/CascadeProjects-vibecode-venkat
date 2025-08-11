@@ -40,7 +40,8 @@ A modern, full-featured hospital management system built with Flask.
 ## Quick Start
 1. Install dependencies: `pip install -r requirements.txt`
 2. Run the app: `python app.py`
-3. Register a new user and log in to access the dashboard
+3. Open your browser and go to [http://127.0.0.1:5000/](http://127.0.0.1:5000/) or [http://localhost:5000/](http://localhost:5000/) to use the app locally.
+4. Register a new user and log in to access the dashboard
 
 ## Project Structure
 - `app.py` – Main Flask app and routes
