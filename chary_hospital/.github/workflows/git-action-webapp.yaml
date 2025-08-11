@@ -1,5 +1,5 @@
 # GitHub Actions workflow for deploying Flask app to Azure Web App
-name: Azure Web App Deploy
+name: git-action webapp yaml
 
 on:
   push:
