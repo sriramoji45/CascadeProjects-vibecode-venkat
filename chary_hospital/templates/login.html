@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.login-bg {
+    background-image: url('https://images.unsplash.com/photo-1504439468489-c8920d796a29?auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.login-bg::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 51, 102, 0.6); /* blue overlay for readability */
+    z-index: 1;
+}
+.login-content {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    background: rgba(255,255,255,0.90);
+    border-radius: 16px;
+    padding: 32px 24px 24px 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.doctors-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.doctors-row img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.11);
+    background: #f8f9fa;
+}
+</style>
+<div class="login-bg">
+  <div class="login-content">
+    <div class="doctors-row mb-3">
+      <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=facearea&w=256&h=256&q=80" alt="Doctor 1">
+      <img src="https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?auto=format&fit=facearea&w=256&h=256&q=80" alt="Doctor 2">
+      <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=facearea&w=256&h=256&q=80" alt="Doctor 3">
+      <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=facearea&w=256&h=256&q=80" alt="Doctor 4">
+    </div>
+    <h2 class="mb-4 text-center" style="color:#003366;">Login</h2>
+    <form method="POST">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Login</button>
+      <div class="text-center mt-2">
+        <a href="/register" class="btn btn-link">Sign Up</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

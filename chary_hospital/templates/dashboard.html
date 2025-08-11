@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Welcome, {{ current_user.username }}!</h2>
+            <p class="lead">This is your hospital dashboard.</p>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Add New Patient</h5>
+                    <p class="card-text">Register a new patient in the hospital system.</p>
+                    <a href="/add_patient" class="btn btn-primary">Add Patient</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">View All Patients</h5>
+                    <p class="card-text">Browse and manage patient records and histories.</p>
+                    <a href="/patients" class="btn btn-success">View Patients</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

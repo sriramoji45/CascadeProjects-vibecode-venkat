@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <h2 class="mb-4">Add History for {{ patient.name }}</h2>
+    <form method="POST">
+      <div class="mb-3">
+        <label for="visit_date" class="form-label">Visit Date</label>
+        <input type="date" class="form-control" id="visit_date" name="visit_date" required>
+      </div>
+      <div class="mb-3">
+        <label for="diagnosis" class="form-label">Diagnosis</label>
+        <input type="text" class="form-control" id="diagnosis" name="diagnosis" required>
+      </div>
+      <div class="mb-3">
+        <label for="treatment" class="form-label">Treatment</label>
+        <input type="text" class="form-control" id="treatment" name="treatment" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Add History</button>
+      <a href="/patient/{{ patient.id }}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
