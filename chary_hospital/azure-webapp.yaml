@@ -1,0 +1,51 @@
+# Azure DevOps Pipeline for building and deploying CHARY Hospital Flask app
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - template: pipeline-variables.yaml
+
+stages:
+  - stage: Build
+    displayName: 'Build Stage'
+    jobs:
+      - job: Build
+        displayName: 'Build Job'
+        steps:
+          - checkout: self
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(pythonVersion)'
+          - script: |
+              python -m pip install --upgrade pip
+              pip install -r requirements.txt
+            displayName: 'Install dependencies'
+          - script: |
+              zip -r app.zip . -x '*.git*'
+            displayName: 'Archive project files'
+          - publish: $(System.DefaultWorkingDirectory)/app.zip
+            artifact: drop
+
+  - stage: Deploy
+    displayName: 'Deploy Stage'
+    dependsOn: Build
+    jobs:
+      - deployment: DeployWeb
+        environment: 'production'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: drop
+                - task: AzureWebApp@1
+                  inputs:
+                    azureSubscription: '$(azureServiceConnection)' # From pipeline-variables.yaml
+                    appType: 'webApp'
+                    appName: '$(webAppName)'
+                    package: '$(Pipeline.Workspace)/drop/app.zip'

@@ -1,0 +1,5 @@
+# pipeline-variables.yaml
+variables:
+  pythonVersion: '3.10'
+  webAppName: 'chary-hospital-app'   # Change to your Azure Web App name
+  azureServiceConnection: 'MyAzureServiceConnection'   # Change to your Azure DevOps service connection
