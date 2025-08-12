@@ -339,8 +339,8 @@ def add_history(patient_id):
         return redirect(url_for('patient_history', patient_id=patient.id))
     return render_template('add_history.html', patient=patient)
 
-if __name__ == '__main__':
-    with app.app_context():
-        if not os.path.exists('hospital.db'):
-            db.create_all()
+with app.app_context():
+    db.create_all()
+
+if __name__ == "__main__":
     app.run(debug=True)
