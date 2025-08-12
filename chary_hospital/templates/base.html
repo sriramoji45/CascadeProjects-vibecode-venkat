@@ -93,9 +93,9 @@
   </div>
 </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#">Health Packages</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Homecare</a></li>
+        <li class="nav-item"><a class="nav-link" href="/health-packages">Health Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="/offers">Offers</a></li>
+        <li class="nav-item"><a class="nav-link" href="/homecare">Homecare</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="eservicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">E-Services</a>
           <ul class="dropdown-menu">
@@ -106,9 +106,7 @@
         </li>
         <li class="nav-item"><a class="nav-link" href="#">Doctors</a></li>
         {% if current_user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="/dashboard">Dashboard</a>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="/logout">Logout</a>
         </li>

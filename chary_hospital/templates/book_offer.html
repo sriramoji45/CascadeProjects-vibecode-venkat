@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.booking-offer-glass {
+  background: rgba(255,255,255,0.87);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(23, 78, 166, 0.09);
+  padding: 32px 28px;
+  max-width: 500px;
+  margin: 40px auto;
+}
+.booking-offer-img {
+  width: 100%;
+  max-width: 180px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+</style>
+<div class="booking-offer-glass">
+  <h3 class="mb-3 text-center">Book Offer</h3>
+  <div class="text-center">
+    <img src="{{ offer.img }}" class="booking-offer-img" alt="{{ offer.title }}">
+  </div>
+  <h5 class="mt-2 text-center">{{ offer.title }}</h5>
+  <div class="mb-3 text-center text-success fw-bold">{{ offer.price }}</div>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-success">{{ messages[0] }}</div>
+    {% endif %}
+  {% endwith %}
+  <form method="POST">
+    <div class="mb-3">
+      <label for="patient_name" class="form-label">Full Name</label>
+      <input type="text" class="form-control" id="patient_name" name="patient_name" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone</label>
+      <input type="tel" class="form-control" id="phone" name="phone" required>
+    </div>
+    <div class="mb-3">
+      <label for="appointment_date" class="form-label">Select Appointment Date</label>
+      <input type="date" class="form-control" id="appointment_date" name="appointment_date" min="{{ min_date }}" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Book Now</button>
+  </form>
+</div>
+{% endblock %}

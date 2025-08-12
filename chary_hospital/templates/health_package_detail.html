@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.hp-detail-hero {
+  background: linear-gradient(135deg, #e3f0ff 0%, #f8fbff 100%);
+  min-height: 28vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+.hp-detail-header {
+  text-align: center;
+  padding: 36px 0 16px 0;
+}
+.hp-detail-header h2 {
+  font-weight: 700;
+  color: #174ea6;
+  margin-bottom: 0.5rem;
+}
+.hp-detail-glass {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(23, 78, 166, 0.13);
+  padding: 32px 24px;
+  max-width: 800px;
+  margin: auto;
+}
+.hp-detail-img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+</style>
+<div class="hp-detail-hero">
+  <div class="hp-detail-header">
+    <h2>{{ pkg.title }}</h2>
+    <p class="lead">Comprehensive checkup package for your needs</p>
+  </div>
+</div>
+<div class="container hp-detail-glass mb-5">
+  <div class="row align-items-center">
+    <div class="col-md-5 text-center mb-4 mb-md-0">
+      <img src="{{ pkg.img }}" class="hp-detail-img" alt="{{ pkg.title }}">
+    </div>
+    <div class="col-md-7">
+      <h4>About this Package</h4>
+      <p>{{ pkg.desc }}</p>
+      <h5 class="mt-4">What's Included</h5>
+      <ul>
+        <li>Doctor consultation</li>
+        <li>Basic blood tests</li>
+        <li>ECG & vital checks</li>
+        <li>Dietitian counseling</li>
+        <li>Full report & recommendations</li>
+      </ul>
+      <a href="/new-patient-registration" class="btn btn-success mt-3">Book Now</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

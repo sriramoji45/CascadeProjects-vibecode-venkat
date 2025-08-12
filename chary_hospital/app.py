@@ -171,9 +171,123 @@ def department_landing(slug):
         return "Department not found", 404
     return render_template('department_landing.html', dept=dept)
 
+HEALTH_PACKAGES = [
+    {
+        "title": "Executive Health Checkup",
+        "slug": "executive-checkup",
+        "img": "https://img.freepik.com/free-photo/doctor-with-stethoscope-hospital_1150-17852.jpg",
+        "desc": "A complete package for busy professionals to monitor all vital health parameters."
+    },
+    {
+        "title": "Women's Wellness",
+        "slug": "womens-wellness",
+        "img": "https://img.freepik.com/free-photo/portrait-young-woman-having-medical-check-up-clinic_1098-2176.jpg",
+        "desc": "Specialized screening and preventive care for women of all ages."
+    },
+    {
+        "title": "Child Health",
+        "slug": "child-health",
+        "img": "https://img.freepik.com/free-photo/child-doctor-checkup_1098-2099.jpg",
+        "desc": "Comprehensive pediatric checkups and vaccinations for your child's well-being."
+    },
+    {
+        "title": "Senior Citizen Care",
+        "slug": "senior-care",
+        "img": "https://img.freepik.com/free-photo/elderly-man-medical-exam_1098-2177.jpg",
+        "desc": "Regular health monitoring and preventive care for the elderly."
+    },
+    {
+        "title": "Diabetes Screening",
+        "slug": "diabetes-screening",
+        "img": "https://img.freepik.com/free-photo/doctor-measuring-blood-pressure-patient_1150-17853.jpg",
+        "desc": "Early detection and management of diabetes with our expert care team."
+    },
+    {
+        "title": "Heart Checkup",
+        "slug": "heart-checkup",
+        "img": "https://img.freepik.com/free-photo/doctor-checking-heartbeat-patient_1150-17851.jpg",
+        "desc": "Advanced cardiac screening and consultations with our specialists."
+    }
+]
+
 @app.route('/health-packages')
 def health_packages():
-    return render_template('health_packages.html')
+    return render_template('health_packages.html', packages=HEALTH_PACKAGES)
+
+@app.route('/health-package/<slug>')
+def health_package_detail(slug):
+    pkg = next((p for p in HEALTH_PACKAGES if p['slug'] == slug), None)
+    if not pkg:
+        return "Package not found", 404
+    return render_template('health_package_detail.html', pkg=pkg)
+
+OFFERS = {
+    "full-body-checkup": {
+        "title": "Full Body Checkup",
+        "img": "https://images.pexels.com/photos/1170979/pexels-photo-1170979.jpeg?auto=compress&w=400",
+        "price": "₹1499"
+    },
+    # Add other offers here as needed
+}
+
+@app.route('/offers')
+def offers():
+    return render_template('offers.html')
+
+from models import Booking, db
+from flask_mail import Mail, Message
+import os
+
+# Flask-Mail config (fully flexible for any provider)
+# Set these environment variables for your provider (Gmail, Outlook, custom SMTP, etc)
+app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
+app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
+app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True').lower() in ('true','1','yes')
+app.config['MAIL_USE_SSL'] = os.environ.get('MAIL_USE_SSL', 'False').lower() in ('true','1','yes')
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'your_gmail@gmail.com')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'your_app_password')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'your_gmail@gmail.com')
+mail = Mail(app)
+
+@app.route('/book-offer/<slug>', methods=['GET', 'POST'])
+def book_offer(slug):
+    offer = OFFERS.get(slug)
+    if not offer:
+        return "Offer not found", 404
+    from datetime import date, datetime
+    min_date = date.today().isoformat()
+    if request.method == 'POST':
+        booking = Booking(
+            offer_slug=slug,
+            offer_title=offer['title'],
+            patient_name=request.form['patient_name'],
+            email=request.form['email'],
+            phone=request.form['phone'],
+            appointment_date=datetime.strptime(request.form['appointment_date'], "%Y-%m-%d").date()
+        )
+        db.session.add(booking)
+        db.session.commit()
+        # Send confirmation email
+        try:
+            msg = Message(
+                subject=f"Booking Confirmation: {offer['title']}",
+                recipients=[request.form['email']],
+                body=f"Dear {request.form['patient_name']},\n\nYour booking for {offer['title']} on {request.form['appointment_date']} at CTS Health Care is confirmed.\n\nThank you!\nCTS Health Care Team"
+            )
+            mail.send(msg)
+        except Exception as e:
+            print('Email send failed:', e)
+        flash(f"Booking confirmed for {offer['title']} on {request.form['appointment_date']}. Confirmation email sent.")
+        return redirect(url_for('offers'))
+    return render_template('book_offer.html', offer=offer, min_date=min_date)
+
+@app.route('/doctors')
+def doctors():
+    return render_template('doctors.html')
+
+@app.route('/homecare')
+def homecare():
+    return render_template('homecare.html')
 
 @app.route('/new-patient-registration', methods=['GET', 'POST'])
 def new_patient_registration():

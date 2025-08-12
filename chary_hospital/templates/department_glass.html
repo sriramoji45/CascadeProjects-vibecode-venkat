@@ -57,10 +57,32 @@
     </div>
     <div class="dept-glass-list">
       {% for dept in departments %}
+      {% if dept.name == 'Health Packages' %}
+      <a href="/health-packages" class="dept-glass-card text-decoration-none" style="cursor:pointer;">
+        <div class="dept-glass-icon">{{ dept.icon|safe }}</div>
+        <div class="dept-glass-title">{{ dept.name }}</div>
+      </a>
+      {% elif dept.name == 'Offers' %}
+      <a href="/offers" class="dept-glass-card text-decoration-none" style="cursor:pointer;">
+        <div class="dept-glass-icon">{{ dept.icon|safe }}</div>
+        <div class="dept-glass-title">{{ dept.name }}</div>
+      </a>
+      {% elif dept.name == 'Doctors' %}
+      <a href="/doctors" class="dept-glass-card text-decoration-none" style="cursor:pointer;">
+        <div class="dept-glass-icon">{{ dept.icon|safe }}</div>
+        <div class="dept-glass-title">{{ dept.name }}</div>
+      </a>
+      {% elif dept.name == 'Homecare' %}
+      <a href="/homecare" class="dept-glass-card text-decoration-none" style="cursor:pointer;">
+        <div class="dept-glass-icon">{{ dept.icon|safe }}</div>
+        <div class="dept-glass-title">{{ dept.name }}</div>
+      </a>
+      {% else %}
       <a href="/department/{{ dept.slug }}" class="dept-glass-card text-decoration-none">
         <div class="dept-glass-icon">{{ dept.icon|safe }}</div>
         <div class="dept-glass-title">{{ dept.name }}</div>
       </a>
+      {% endif %}
       {% endfor %}
     </div>
   </div>

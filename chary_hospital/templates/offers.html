@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.offers-hero {
+  background: linear-gradient(90deg, #ffecd2 0%, #fcb69f 100%);
+  border-radius: 0 0 32px 32px;
+  padding: 32px 0 24px 0;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.offers-card {
+  border: none;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(255, 152, 0, 0.09);
+  background: rgba(255,255,255,0.87);
+  overflow: hidden;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.offers-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 16px 48px rgba(255, 152, 0, 0.16);
+}
+.offers-img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+.offers-title {
+  font-weight: 700;
+  color: #d35400;
+  font-size: 1.2rem;
+}
+.offers-discount {
+  color: #27ae60;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.offers-valid {
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+</style>
+<div class="offers-hero">
+  <h2 class="display-6" style="color:#d35400;font-weight:700;">Special Health Offers</h2>
+  <p class="lead">Celebrate health with exclusive Indian-style offers at CTS Health Care!</p>
+</div>
+<div class="container">
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-4">
+      <a href="/book-offer/full-body-checkup" class="text-decoration-none">
+      <div class="card offers-card h-100">
+        <img src="https://images.pexels.com/photos/1170979/pexels-photo-1170979.jpeg?auto=compress&w=400" class="offers-img" alt="Full Body Checkup Offer">
+        <div class="card-body text-center">
+          <div class="offers-title">Full Body Checkup @ ₹1499</div>
+          <div class="offers-discount">Save 50% <span class="badge bg-success ms-2">Limited Time</span></div>
+          <div class="offers-valid">Valid till: 31 Aug 2025</div>
+        </div>
+      </div>
+      </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card offers-card h-100">
+        <img src="https://images.pexels.com/photos/3952232/pexels-photo-3952232.jpeg?auto=compress&w=400" class="offers-img" alt="Diabetes Screening Offer">
+        <div class="card-body text-center">
+          <div class="offers-title">Diabetes Screening @ ₹499</div>
+          <div class="offers-discount">Flat 40% Off</div>
+          <div class="offers-valid">Valid till: 15 Sep 2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card offers-card h-100">
+        <img src="https://images.pexels.com/photos/6749774/pexels-photo-6749774.jpeg?auto=compress&w=400" class="offers-img" alt="Senior Citizen Care Offer">
+        <div class="card-body text-center">
+          <div class="offers-title">Senior Citizen Care @ ₹999</div>
+          <div class="offers-discount">Special Independence Day Offer</div>
+          <div class="offers-valid">Valid till: 31 Aug 2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card offers-card h-100">
+        <img src="https://images.pexels.com/photos/5327580/pexels-photo-5327580.jpeg?auto=compress&w=400" class="offers-img" alt="Women's Wellness Offer">
+        <div class="card-body text-center">
+          <div class="offers-title">Women's Wellness @ ₹1299</div>
+          <div class="offers-discount">Flat 30% Off</div>
+          <div class="offers-valid">Valid till: 15 Sep 2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card offers-card h-100">
+        <img src="https://images.pexels.com/photos/8376292/pexels-photo-8376292.jpeg?auto=compress&w=400" class="offers-img" alt="Heart Checkup Offer">
+        <div class="card-body text-center">
+          <div class="offers-title">Heart Checkup @ ₹1699</div>
+          <div class="offers-discount">Save 25%</div>
+          <div class="offers-valid">Valid till: 31 Aug 2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card offers-card h-100">
+        <img src="https://images.pexels.com/photos/415824/pexels-photo-415824.jpeg?auto=compress&w=400" class="offers-img" alt="Child Health Offer">
+        <div class="card-body text-center">
+          <div class="offers-title">Child Health Check @ ₹799</div>
+          <div class="offers-discount">Back to School Special</div>
+          <div class="offers-valid">Valid till: 10 Sep 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
