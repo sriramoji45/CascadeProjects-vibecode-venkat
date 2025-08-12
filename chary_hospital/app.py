@@ -44,18 +44,46 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
+        # Redirect to the correct dashboard based on role
+        if current_user.role == 'doctor':
+            return redirect(url_for('doctor_dashboard'))
+        elif current_user.role == 'admin':
+            return redirect(url_for('admin_dashboard'))
+        else:
+            return redirect(url_for('patient_dashboard'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        user = User.query.filter_by(username=username).first()
+        role = request.form['role']
+        user = User.query.filter_by(username=username, role=role).first()
         if user and user.check_password(password):
             login_user(user)
             flash('Logged in successfully.')
-            return redirect(url_for('dashboard'))
+            # Redirect based on role
+            if user.role == 'doctor':
+                return redirect(url_for('doctor_dashboard'))
+            elif user.role == 'admin':
+                return redirect(url_for('admin_dashboard'))
+            else:
+                return redirect(url_for('patient_dashboard'))
         else:
-            flash('Invalid username or password.')
+            flash('Invalid username, password, or role.')
     return render_template('login.html')
+
+@app.route('/patient_dashboard')
+@login_required
+def patient_dashboard():
+    return render_template('patient_dashboard.html')
+
+@app.route('/doctor_dashboard')
+@login_required
+def doctor_dashboard():
+    return render_template('doctor_dashboard.html')
+
+@app.route('/admin_dashboard')
+@login_required
+def admin_dashboard():
+    return render_template('admin_dashboard.html')
 
 @app.route('/logout')
 @login_required

@@ -1,4 +1,4 @@
-# CHARY's Super Speciality Hospital Web App
+# CTS Health Care Super Speciality Hospital Web App
 
 A modern, full-featured hospital management system built with Flask.
 
@@ -11,7 +11,7 @@ A modern, full-featured hospital management system built with Flask.
 
 ### Dashboard
 - Personalized welcome for logged-in users
-- Modern UI with cards/buttons for each hospital section
+- Modern UI with cards/buttons for CTS Health Care Super Speciality Hospital section
 
 ### Main Sections (Accessible from Dashboard)
 - **Patient Services:** Registration, appointments, reports

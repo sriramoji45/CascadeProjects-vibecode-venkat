@@ -64,6 +64,14 @@
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" id="password" name="password" required>
       </div>
+      <div class="mb-3">
+        <label for="role" class="form-label">Login as</label>
+        <select class="form-select" id="role" name="role" required>
+          <option value="patient">Patient</option>
+          <option value="doctor">Doctor</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
       <button type="submit" class="btn btn-primary w-100">Login</button>
       <div class="text-center mt-2">
         <a href="/register" class="btn btn-link">Sign Up</a>
