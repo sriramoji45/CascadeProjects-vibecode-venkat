@@ -132,6 +132,57 @@ def laboratory():
 def feedback():
     return render_template('feedback.html')
 
+# Departments data
+DEPARTMENTS = [
+    {"name": "Anaesthesia", "slug": "anaesthesia", "icon": "<i class='bi bi-capsule'></i>"},
+    {"name": "Cardiology", "slug": "cardiology", "icon": "<i class='bi bi-heart-pulse'></i>"},
+    {"name": "Dermatology", "slug": "dermatology", "icon": "<i class='bi bi-droplet-half'></i>"},
+    {"name": "Dietetics", "slug": "dietetics", "icon": "<i class='bi bi-egg-fried'></i>"},
+    {"name": "Emergency", "slug": "emergency", "icon": "<i class='bi bi-exclamation-triangle'></i>"},
+    {"name": "Endocrinology", "slug": "endocrinology", "icon": "<i class='bi bi-bar-chart'></i>"},
+    {"name": "Family Medicine", "slug": "family-medicine", "icon": "<i class='bi bi-people'></i>"},
+    {"name": "Gastroenterology", "slug": "gastroenterology", "icon": "<i class='bi bi-cup-straw'></i>"},
+    {"name": "General Surgery", "slug": "general-surgery", "icon": "<i class='bi bi-scissors'></i>"},
+    {"name": "Headache Clinic", "slug": "headache-clinic", "icon": "<i class='bi bi-emoji-dizzy'></i>"},
+    {"name": "Internal Medicine", "slug": "internal-medicine", "icon": "<i class='bi bi-clipboard2-pulse'></i>"},
+    {"name": "Laboratory", "slug": "laboratory", "icon": "<i class='bi bi-beaker'></i>"},
+    {"name": "Neurology", "slug": "neurology", "icon": "<i class='bi bi-brain'></i>"},
+    {"name": "Obs-Gynaecology", "slug": "obs-gynaecology", "icon": "<i class='bi bi-gender-female'></i>"},
+    {"name": "Ophthalmology (EYE)", "slug": "ophthalmology", "icon": "<i class='bi bi-eye'></i>"},
+    {"name": "Orthopedics", "slug": "orthopedics", "icon": "<i class='bi bi-bone'></i>"},
+    {"name": "Otolaryngology (ENT)", "slug": "otolaryngology", "icon": "<i class='bi bi-ear'></i>"},
+    {"name": "Pediatrics", "slug": "pediatrics", "icon": "<i class='bi bi-baby'></i>"},
+    {"name": "Psychiatry", "slug": "psychiatry", "icon": "<i class='bi bi-emoji-expressionless'></i>"},
+    {"name": "Pulmonology", "slug": "pulmonology", "icon": "<i class='bi bi-wind'></i>"},
+    {"name": "Radiology", "slug": "radiology", "icon": "<i class='bi bi-radioactive'></i>"},
+    {"name": "Rheumatology", "slug": "rheumatology", "icon": "<i class='bi bi-droplet'></i>"},
+    {"name": "Rehabilitation (Physiotherapy)", "slug": "rehabilitation", "icon": "<i class='bi bi-person-walking'></i>"},
+    {"name": "Urology", "slug": "urology", "icon": "<i class='bi bi-droplet-half'></i>"},
+]
+
+@app.route('/departments')
+def departments():
+    return render_template('department_glass.html', departments=DEPARTMENTS)
+
+@app.route('/department/<slug>')
+def department_landing(slug):
+    dept = next((d for d in DEPARTMENTS if d['slug'] == slug), None)
+    if not dept:
+        return "Department not found", 404
+    return render_template('department_landing.html', dept=dept)
+
+@app.route('/health-packages')
+def health_packages():
+    return render_template('health_packages.html')
+
+@app.route('/new-patient-registration', methods=['GET', 'POST'])
+def new_patient_registration():
+    if request.method == 'POST':
+        # Here you would handle saving the registration details to the database
+        flash('Registration submitted successfully! Our staff will contact you soon.')
+        return redirect(url_for('new_patient_registration'))
+    return render_template('new_patient_registration.html')
+
 @app.route('/add_patient', methods=['GET', 'POST'])
 @login_required
 def add_patient():

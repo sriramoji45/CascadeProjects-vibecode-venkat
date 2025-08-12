@@ -7,14 +7,104 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<!-- Top info bar -->
+<div class="bg-dark text-light py-1 small">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <div>
+      <span class="me-3"><i class="bi bi-telephone"></i> 8002211</span>
+      <span class="me-3"><i class="bi bi-envelope"></i> info@ctshealthcare.com</span>
+      <span class="me-3"><i class="bi bi-calendar-check"></i> <a href="/new-patient-registration" class="text-light text-decoration-underline">Book An Appointment</a></span>
+    </div>
+    <div>
+      <span class="me-2">English</span>
+      <span class="dropdown me-2">
+        <a class="dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Branch</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Hyderabad</a></li>
+          <li><a class="dropdown-item" href="#">Bangalore</a></li>
+          <li><a class="dropdown-item" href="#">Chennai</a></li>
+        </ul>
+      </span>
+    </div>
+  </div>
+</div>
+<!-- Main navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">CTS Health Care Super Speciality Hospital</a>
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="https://cdn-icons-png.flaticon.com/512/2966/2966484.png" alt="Hospital Logo" width="38" height="38" class="me-2">
+      <span class="fw-bold" style="color:#174ea6;">CTS Health Care Super Speciality Hospital</span>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="departmentsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Departments</a>
+          <ul class="dropdown-menu p-3 departments-glass-dropdown" style="min-width: 900px; left: 50%; transform: translateX(-55%);">
+  <style>
+    .departments-glass-dropdown {
+      background: rgba(255, 255, 255, 0.74) !important;
+      backdrop-filter: blur(9px);
+      -webkit-backdrop-filter: blur(9px);
+      border: 1.5px solid rgba(180,200,255,0.22);
+      box-shadow: 0 8px 32px rgba(23, 78, 166, 0.13);
+      border-radius: 18px;
+    }
+    .departments-multicolumn { display: flex; }
+    .departments-multicolumn-col { flex: 1 0 25%; min-width: 180px; max-width: 240px; }
+    @media (max-width: 900px) { .departments-glass-dropdown { min-width: 98vw !important; } }
+    @media (max-width: 700px) { .departments-multicolumn { flex-direction: column; } }
+  </style>
+  <div class="departments-multicolumn">
+    <div class="departments-multicolumn-col">
+      <a class="dropdown-item" href="/department/anaesthesia">Anaesthesia</a>
+      <a class="dropdown-item" href="/department/cardiology">Cardiology</a>
+      <a class="dropdown-item" href="/department/dermatology">Dermatology</a>
+      <a class="dropdown-item" href="/department/dietetics">Dietetics</a>
+      <a class="dropdown-item" href="/department/emergency">Emergency</a>
+      <a class="dropdown-item" href="/department/endocrinology">Endocrinology</a>
+    </div>
+    <div class="departments-multicolumn-col">
+      <a class="dropdown-item" href="/department/family-medicine">Family Medicine</a>
+      <a class="dropdown-item" href="/department/gastroenterology">Gastroenterology</a>
+      <a class="dropdown-item" href="/department/general-surgery">General Surgery</a>
+      <a class="dropdown-item" href="/department/headache-clinic">Headache Clinic</a>
+      <a class="dropdown-item" href="/department/internal-medicine">Internal Medicine</a>
+      <a class="dropdown-item" href="/department/laboratory">Laboratory</a>
+    </div>
+    <div class="departments-multicolumn-col">
+      <a class="dropdown-item" href="/department/neurology">Neurology</a>
+      <a class="dropdown-item" href="/department/obs-gynaecology">Obs-Gynaecology</a>
+      <a class="dropdown-item" href="/department/ophthalmology">Ophthalmology (EYE)</a>
+      <a class="dropdown-item" href="/department/orthopedics">Orthopedics</a>
+      <a class="dropdown-item" href="/department/otolaryngology">Otolaryngology (ENT)</a>
+      <a class="dropdown-item" href="/department/pediatrics">Pediatrics</a>
+    </div>
+    <div class="departments-multicolumn-col">
+      <a class="dropdown-item" href="/department/psychiatry">Psychiatry</a>
+      <a class="dropdown-item" href="/department/pulmonology">Pulmonology</a>
+      <a class="dropdown-item" href="/department/radiology">Radiology</a>
+      <a class="dropdown-item" href="/department/rheumatology">Rheumatology</a>
+      <a class="dropdown-item" href="/department/rehabilitation">Rehabilitation (Physiotherapy)</a>
+      <a class="dropdown-item" href="/department/urology">Urology</a>
+    </div>
+  </div>
+</ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Health Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Homecare</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="eservicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">E-Services</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/new-patient-registration">New Patient Registration</a></li>
+            <li><a class="dropdown-item" href="#">Online Reports</a></li>
+            <li><a class="dropdown-item" href="#">Telemedicine</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Doctors</a></li>
         {% if current_user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="/dashboard">Dashboard</a>
@@ -34,16 +124,17 @@
     </div>
   </div>
 </nav>
-<div class="container mt-4">
+  <div class="container mt-4">
     {% with messages = get_flashed_messages() %}
       {% if messages %}
-        {% for message in messages %}
-          <div class="alert alert-info">{{ message }}</div>
-        {% endfor %}
+        <div class="alert alert-info" role="alert">
+          {{ messages[0] }}
+        </div>
       {% endif %}
     {% endwith %}
     {% block content %}{% endblock %}
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

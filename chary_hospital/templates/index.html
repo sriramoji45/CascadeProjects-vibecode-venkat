@@ -25,16 +25,19 @@
     text-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 </style>
-<div class="hero-bg">
+<div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80'); min-height: 60vh;">
   <div class="container hero-content text-center py-5">
-    <h1 class="display-4">CTS Health Care Super Speciality Hospital Management System</h1>
-    <p class="lead">Manage patients, view history, and streamline hospital operations.</p>
-    {% if not current_user.is_authenticated %}
-      <a class="btn btn-primary btn-lg" href="/login" role="button">Login</a>
-      <a class="btn btn-secondary btn-lg" href="/register" role="button">Sign Up</a>
-    {% else %}
-      <a class="btn btn-success btn-lg" href="/dashboard" role="button">Go to Dashboard</a>
-    {% endif %}
+    <h1 class="display-4" style="color:#00b894; font-weight:700; text-shadow:0 2px 8px rgba(0,0,0,0.15);">Welcome to CTS Health Care Super Speciality Hospital</h1>
+    <p class="lead" style="color:#fff; font-size:1.45rem;">Caring like family. Your health, our priority.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
+      <a class="btn btn-success btn-lg px-4" href="/new-patient-registration" role="button" style="font-weight:600;">New Patient Registration</a>
+      {% if not current_user.is_authenticated %}
+        <a class="btn btn-primary btn-lg px-4" href="/login" role="button">Login</a>
+        <a class="btn btn-outline-light btn-lg px-4" href="/register" role="button">Sign Up</a>
+      {% else %}
+        <a class="btn btn-info btn-lg px-4" href="/dashboard" role="button">Go to Dashboard</a>
+      {% endif %}
+    </div>
   </div>
 </div>
 {% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.registration-hero-bg {
+    background: linear-gradient(135deg, #e3f0ff 0%, #f8fbff 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+}
+.registration-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(23, 78, 166, 0.09);
+    max-width: 700px;
+    margin: auto;
+    padding: 36px 32px 32px 32px;
+    width: 100%;
+}
+.registration-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.registration-header h2 {
+    font-weight: 700;
+    color: #174ea6;
+    margin-bottom: 0.5rem;
+}
+.registration-header p {
+    color: #555;
+    font-size: 1.1rem;
+}
+.form-label {
+    color: #003366;
+    font-weight: 500;
+}
+</style>
+<div class="registration-hero-bg">
+  <div class="registration-card">
+    <div class="registration-header">
+      <h2>New Patient Registration</h2>
+      <p>Register for CTS Health Care Super Speciality Hospital eHospital Services</p>
+    </div>
+    <form method="POST">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="fullname" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="fullname" name="fullname" required>
+        </div>
+        <div class="col-md-6">
+          <label for="dob" class="form-label">Date of Birth</label>
+          <input type="date" class="form-control" id="dob" name="dob" required>
+        </div>
+        <div class="col-md-6">
+          <label for="gender" class="form-label">Gender</label>
+          <select class="form-select" id="gender" name="gender" required>
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="contact" class="form-label">Contact Number</label>
+          <input type="text" class="form-control" id="contact" name="contact" required>
+        </div>
+        <div class="col-md-12">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="col-md-12">
+          <label for="address" class="form-label">Address</label>
+          <textarea class="form-control" id="address" name="address" rows="2" required></textarea>
+        </div>
+        <div class="col-md-12">
+          <label for="department" class="form-label">Department</label>
+          <select class="form-select" id="department" name="department" required>
+            <option value="">Select Department</option>
+            <option value="General Medicine">General Medicine</option>
+            <option value="Cardiology">Cardiology</option>
+            <option value="Orthopedics">Orthopedics</option>
+            <option value="Neurology">Neurology</option>
+            <option value="Pediatrics">Pediatrics</option>
+            <option value="Gynecology">Gynecology</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-md-12">
+          <label for="doctor" class="form-label">Preferred Doctor / Specialist</label>
+          <input type="text" class="form-control" id="doctor" name="doctor">
+        </div>
+        <div class="col-md-12 text-center">
+          <button type="submit" class="btn btn-primary btn-lg mt-3">Register</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

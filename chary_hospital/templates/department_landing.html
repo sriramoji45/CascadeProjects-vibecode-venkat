@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.dept-landing-hero {
+  background: linear-gradient(135deg, #e3f0ff 0%, #f8fbff 100%);
+  min-height: 32vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+.dept-landing-header {
+  text-align: center;
+  padding: 36px 0 16px 0;
+}
+.dept-landing-header h2 {
+  font-weight: 700;
+  color: #174ea6;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+.dept-landing-content {
+  background: rgba(255,255,255,0.8);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(23, 78, 166, 0.09);
+  padding: 32px 28px;
+  max-width: 820px;
+  margin: auto;
+}
+.dept-landing-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+</style>
+<div class="dept-landing-hero">
+  <div class="dept-landing-header">
+    <div class="dept-landing-icon">{{ dept.icon|safe }}</div>
+    <h2 class="display-6">{{ dept.name }}</h2>
+    <p class="lead">Welcome to our {{ dept.name }} department. We offer expert care and advanced facilities for your health needs.</p>
+  </div>
+</div>
+<div class="dept-landing-content">
+  <h4>About {{ dept.name }}</h4>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi eu consectetur consectetur, nisl nisl aliquam nisl, eu aliquam nisl nisl eu nisl. Pellentesque euismod, nisi eu consectetur consectetur.</p>
+  <h5 class="mt-4">Our Services</h5>
+  <ul>
+    <li>Specialist consultations</li>
+    <li>Advanced diagnostics</li>
+    <li>Personalized treatment plans</li>
+    <li>24/7 emergency care (where applicable)</li>
+  </ul>
+  <h5 class="mt-4">Contact & Appointments</h5>
+  <p>For appointments or more information, please call <b>8002211</b> or use our <a href="/new-patient-registration">online registration form</a>.</p>
+</div>
+{% endblock %}

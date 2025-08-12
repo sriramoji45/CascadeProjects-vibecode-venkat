@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.dept-glass-bg {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #e0e7ff 0%, #f1f5f9 100%);
+  padding: 40px 0;
+}
+.dept-glass-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.dept-glass-header h2 {
+  font-weight: 700;
+  color: #174ea6;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+.dept-glass-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+}
+.dept-glass-card {
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(23, 78, 166, 0.09);
+  padding: 36px 32px;
+  min-width: 220px;
+  max-width: 260px;
+  text-align: center;
+  transition: transform 0.18s, box-shadow 0.18s;
+  cursor: pointer;
+  border: 1px solid #e0e7ff;
+}
+.dept-glass-card:hover {
+  transform: translateY(-6px) scale(1.07);
+  box-shadow: 0 16px 48px rgba(23, 78, 166, 0.14);
+  background: rgba(255,255,255,0.85);
+}
+.dept-glass-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+}
+.dept-glass-title {
+  font-weight: 600;
+  color: #174ea6;
+  margin-bottom: 0.5rem;
+}
+</style>
+<div class="dept-glass-bg">
+  <div class="container">
+    <div class="dept-glass-header">
+      <h2>Our Departments</h2>
+      <p class="lead">Explore our specialties and expert care teams</p>
+    </div>
+    <div class="dept-glass-list">
+      {% for dept in departments %}
+      <a href="/department/{{ dept.slug }}" class="dept-glass-card text-decoration-none">
+        <div class="dept-glass-icon">{{ dept.icon|safe }}</div>
+        <div class="dept-glass-title">{{ dept.name }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
