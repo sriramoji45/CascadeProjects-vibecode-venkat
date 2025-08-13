@@ -9,6 +9,8 @@ app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hospital.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Use environment variables for email credentials (e.g., MAIL_USERNAME, MAIL_PASSWORD)
+# For Gmail, consider using an app password for added security
 db.init_app(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -17,7 +19,8 @@ from models import User, Patient, PatientHistory
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    # Updated for SQLAlchemy 2.x: use db.session.get
+    return db.session.get(User, int(user_id))
 
 @app.route('/')
 def home():
@@ -97,9 +100,26 @@ def logout():
 def dashboard():
     return render_template('dashboard.html')
 
-@app.route('/patient-services')
+@app.route('/patient-services', methods=['GET', 'POST'])
 @login_required
 def patient_services():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        name = request.form.get('name')
+        dept = request.form.get('department')
+        date = request.form.get('appointment_date')
+        try:
+            msg = Message(
+                subject="Appointment Request Confirmation - CTS Health Care",
+                recipients=[email],
+                body=f"Dear {name},\n\nYour appointment request for {dept} on {date} has been received. Our staff will contact you to confirm your booking.\n\nBest regards,\nCTS Health Care Team"
+            )
+            mail.send(msg)
+            flash('Appointment request submitted! Confirmation email sent.')
+        except Exception as e:
+            print('Appointment email send failed:', e)
+            flash('Appointment request submitted! (Email failed to send)')
+        return redirect(url_for('patient_services'))
     return render_template('patient_services.html')
 
 @app.route('/doctor')
@@ -127,9 +147,25 @@ def billing():
 def laboratory():
     return render_template('laboratory.html')
 
-@app.route('/feedback')
+@app.route('/feedback', methods=['GET', 'POST'])
 @login_required
 def feedback():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        name = request.form.get('name')
+        msg_body = request.form.get('message', '')
+        try:
+            msg = Message(
+                subject="Thank you for your feedback - CTS Health Care",
+                recipients=[email],
+                body=f"Dear {name},\n\nThank you for your feedback! We appreciate your input and will review your message:\n\n{msg_body}\n\nBest regards,\nCTS Health Care Team"
+            )
+            mail.send(msg)
+            flash('Feedback submitted successfully! Confirmation email sent.')
+        except Exception as e:
+            print('Feedback email send failed:', e)
+            flash('Feedback submitted successfully! (Email failed to send)')
+        return redirect(url_for('feedback'))
     return render_template('feedback.html')
 
 # Departments data
@@ -227,7 +263,31 @@ OFFERS = {
         "img": "https://images.pexels.com/photos/1170979/pexels-photo-1170979.jpeg?auto=compress&w=400",
         "price": "₹1499"
     },
-    # Add other offers here as needed
+    "diabetes-screening": {
+        "title": "Diabetes Screening",
+        "img": "https://images.pexels.com/photos/3952232/pexels-photo-3952232.jpeg?auto=compress&w=400",
+        "price": "₹499"
+    },
+    "senior-care": {
+        "title": "Senior Citizen Care",
+        "img": "https://images.pexels.com/photos/6749774/pexels-photo-6749774.jpeg?auto=compress&w=400",
+        "price": "₹999"
+    },
+    "womens-wellness": {
+        "title": "Women's Wellness",
+        "img": "https://images.pexels.com/photos/5327580/pexels-photo-5327580.jpeg?auto=compress&w=400",
+        "price": "₹1299"
+    },
+    "heart-checkup": {
+        "title": "Heart Checkup",
+        "img": "https://images.pexels.com/photos/8376292/pexels-photo-8376292.jpeg?auto=compress&w=400",
+        "price": "₹1699"
+    },
+    "child-health": {
+        "title": "Child Health Check",
+        "img": "https://images.pexels.com/photos/415824/pexels-photo-415824.jpeg?auto=compress&w=400",
+        "price": "₹799"
+    }
 }
 
 @app.route('/offers')
@@ -244,9 +304,17 @@ app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
 app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
 app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True').lower() in ('true','1','yes')
 app.config['MAIL_USE_SSL'] = os.environ.get('MAIL_USE_SSL', 'False').lower() in ('true','1','yes')
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'your_gmail@gmail.com')
+# NOTE: For Gmail, set up an App Password and store it in the environment variable MAIL_PASSWORD.
+# Never use your regular Gmail password. See: https://support.google.com/accounts/answer/185833
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'ctshealthcarehospital@gmail.com')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'your_app_password')
-app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'your_gmail@gmail.com')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'ctshealthcarehospital@gmail.com')
+print("MAIL_USERNAME:", app.config['MAIL_USERNAME'])
+print("MAIL_PASSWORD (first 4 chars):", app.config['MAIL_PASSWORD'][:4], "***")
+print("MAIL_SERVER:", app.config['MAIL_SERVER'])
+print("MAIL_PORT:", app.config['MAIL_PORT'])
+print("MAIL_USE_TLS:", app.config['MAIL_USE_TLS'])
+print("MAIL_USE_SSL:", app.config['MAIL_USE_SSL'])
 mail = Mail(app)
 
 @app.route('/book-offer/<slug>', methods=['GET', 'POST'])
@@ -292,8 +360,22 @@ def homecare():
 @app.route('/new-patient-registration', methods=['GET', 'POST'])
 def new_patient_registration():
     if request.method == 'POST':
-        # Here you would handle saving the registration details to the database
-        flash('Registration submitted successfully! Our staff will contact you soon.')
+        # Extract email and name from form
+        email = request.form.get('email')
+        name = request.form.get('fullname')
+        # (You can save registration details to DB here if desired)
+        # Send confirmation email
+        try:
+            msg = Message(
+                subject="Registration Confirmation - CTS Health Care",
+                recipients=[email],
+                body=f"Dear {name},\n\nThank you for registering at CTS Health Care Super Speciality Hospital. Our staff will contact you soon.\n\nBest regards,\nCTS Health Care Team"
+            )
+            mail.send(msg)
+            flash('Registration submitted successfully! Confirmation email sent.')
+        except Exception as e:
+            print('Registration email send failed:', e)
+            flash('Registration submitted successfully! (Email failed to send)')
         return redirect(url_for('new_patient_registration'))
     return render_template('new_patient_registration.html')
 
@@ -305,10 +387,25 @@ def add_patient():
         age = request.form['age']
         gender = request.form['gender']
         contact = request.form['contact']
+        email = request.form.get('email')
         patient = Patient(name=name, age=age, gender=gender, contact=contact)
         db.session.add(patient)
         db.session.commit()
-        flash('Patient added successfully.')
+        # Send confirmation email if email is provided
+        if email:
+            try:
+                msg = Message(
+                    subject="Patient Added - CTS Health Care",
+                    recipients=[email],
+                    body=f"Dear {name},\n\nYou have been successfully added as a patient at CTS Health Care Super Speciality Hospital.\n\nBest regards,\nCTS Health Care Team"
+                )
+                mail.send(msg)
+                flash('Patient added successfully. Confirmation email sent.')
+            except Exception as e:
+                print('Add patient email send failed:', e)
+                flash('Patient added successfully. (Email failed to send)')
+        else:
+            flash('Patient added successfully.')
         return redirect(url_for('patients'))
     return render_template('add_patient.html')
 
